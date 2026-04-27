@@ -1,0 +1,118 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+title Fitness Center Booking System - Class Diagram
+
+interface Bookable {
+    +bookMember(member: Member): boolean
+    +cancelBooking(member: Member): boolean
+}
+
+abstract class Activity {
+    -id: int
+    -name: String
+    -maxParticipants: int
+    -price: double
+    -participants: ArrayList<Member>
+    --
+    +Activity(id: int, name: String, maxParticipants: int, price: double)
+    +getId(): int
+    +getName(): String
+    +getMaxParticipants(): int
+    +getPrice(): double
+    +getParticipants(): ArrayList<Member>
+    +getAvailableSpots(): int
+    +showBasicInfo(): String
+    +getDescription(): String
+    +bookMember(member: Member): boolean
+    +cancelBooking(member: Member): boolean
+}
+
+class StrengthClass {
+    -muscleGroup: String
+    --
+    +StrengthClass(id: int, name: String, maxParticipants: int, price: double, muscleGroup: String)
+    +getDescription(): String
+    +toString(): String
+}
+
+class CardioClass {
+    -intensityLevel: String
+    --
+    +CardioClass(id: int, name: String, maxParticipants: int, price: double, intensityLevel: String)
+    +getDescription(): String
+    +toString(): String
+}
+
+class Member {
+    -id: int
+    -name: String
+    -email: String
+    -age: int
+    --
+    +Member(id: int, name: String, email: String, age: int)
+    +getId(): int
+    +getName(): String
+    +getEmail(): String
+    +getAge(): int
+    +setName(name: String): void
+    +setEmail(email: String): void
+    +setAge(age: int): void
+    +toString(): String
+}
+
+class Booking {
+    -bookingId: int
+    -member: Member
+    -activity: Activity
+    -dateTime: String
+    --
+    +Booking(bookingId: int, member: Member, activity: Activity, dateTime: String)
+    +getBookingId(): int
+    +getMember(): Member
+    +getActivity(): Activity
+    +getDateTime(): String
+    +toString(): String
+}
+
+class Repository<T> {
+    -items: ArrayList<T>
+    --
+    +add(item: T): void
+    +getAll(): ArrayList<T>
+    +remove(item: T): boolean
+}
+
+class BookingService {
+    -memberRepository: Repository<Member>
+    -activityRepository: Repository<Activity>
+    -bookingRepository: Repository<Booking>
+    --
+    +createBooking(memberId: int, activityId: int): Booking
+    +cancelBooking(bookingId: int): boolean
+    +findMemberById(id: int): Member
+    +findActivityById(id: int): Activity
+    +showAllMembers(): void
+    +showAllActivities(): void
+    +showAllBookings(): void
+}
+
+class ActivityFullException
+class DuplicateBookingException
+
+Bookable <|.. Activity
+Activity <|-- StrengthClass
+Activity <|-- CardioClass
+
+Booking --> Member
+Booking --> Activity
+
+BookingService --> Repository
+BookingService --> Member
+BookingService --> Activity
+BookingService --> Booking
+
+Activity ..> ActivityFullException
+Activity ..> DuplicateBookingException
+@enduml
