@@ -1,0 +1,40 @@
+@startuml name DomainModel
+title Domain Model - Fitness Center Booking System
+left to right direction
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+class Member {
+  id
+  name
+  email
+  age
+}
+
+class Booking {
+  bookingId
+  dateTime
+  dateName
+}
+
+abstract class Activity {
+  id
+  name
+  maxParticipants
+  price
+}
+
+class StrengthClass {
+  muscleGroup
+}
+
+class CardioClass {
+  intensityLevel
+}
+
+Member "1" -- "0..*" Booking : makes
+Activity "1" -- "0..*" Booking : is booked in
+
+StrengthClass --|> Activity
+CardioClass --|> Activity
+@enduml
