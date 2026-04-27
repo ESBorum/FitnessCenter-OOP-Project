@@ -60,9 +60,17 @@ public class Main {
                 case 6:
                     cancelBooking(scanner, bookingService);
                     break;
-
+                    
                 case 7:
-                    bookingService.showAllBookings();
+                    System.out.println("=== ALL BOOKINGS ===");
+
+                    if (bookingService.getBookings().isEmpty()) {
+                        System.out.println("No bookings found.");
+                    } else {
+                        for (Booking booking : bookingService.getBookings()) {
+                            System.out.println(booking);
+                        }
+                    }
                     break;
 
                 case 8:

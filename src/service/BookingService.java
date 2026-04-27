@@ -87,22 +87,37 @@ public class BookingService {
 
     // Methods to display all members, activities, and bookings
     public void showAllMembers() {
-        for (Member member : memberRepository.getAll()) {
-            System.out.println(member);
-        }
+    if (memberRepository.getAll().isEmpty()) {
+        System.out.println("No members found.");
+        return;
     }
 
-    public void showAllActivities() {
-        for (Activity activity : activityRepository.getAll()) {
-            System.out.println(activity);
-        }
+    for (Member member : memberRepository.getAll()) {
+        System.out.println(member);
     }
+}
 
     public void showAllBookings() {
-        for (Booking booking : bookingRepository.getAll()) {
-            System.out.println(booking);
-        }
+    if (bookingRepository.getAll().isEmpty()) {
+        System.out.println("No bookings found.");
+        return;
     }
+
+    for (Booking booking : bookingRepository.getAll()) {
+        System.out.println(booking);
+    }
+}
+
+    public void showAllActivities() {
+    if (activityRepository.getAll().isEmpty()) {
+        System.out.println("No activities found.");
+        return;
+    }
+
+    for (Activity activity : activityRepository.getAll()) {
+        System.out.println(activity);
+    }
+}
 
     public ArrayList<Member> getMembers() {
         return memberRepository.getAll();
