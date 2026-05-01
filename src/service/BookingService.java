@@ -131,7 +131,7 @@ public class BookingService {
         return bookingRepository.getAll();
     }
 
-    // Sorts members alphabetically by name, ignoring uppercase/lowercase differences.
+    // Lambda; Sorts members alphabetically by name, ignoring uppercase/lowercase differences.
     public void sortMembersByName() {
     memberRepository.getAll().sort(
         (m1, m2) -> m1.getName().compareToIgnoreCase(m2.getName())
